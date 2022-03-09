@@ -61,3 +61,31 @@ header {
     color: white;
     font-size: 1.4rem;
 }
+
+.images-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.characterImageStyles {
+    width: 250px;
+    height: 300px;
+    object-fit: cover;
+    cursor: pointer;
+    position: relative;
+}
+
+.tooltip {
+    width: 500px;
+    height: 300px;
+    position: absolute;
+    inset-block-start: 0;
+    transform: translateX(250px);
+    background-color: red;
+    z-index: 3;
+}
+
+.containerItemImage {
+    position: relative;
+}
