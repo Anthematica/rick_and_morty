@@ -19,25 +19,36 @@ const createImage = (character) => {
 const rickAndMortyImages = async () => {
     const resp = await fetch(BASE_URL_API);
     const {results} = await resp.json();
-
     results.forEach((characterImage) => {
         const characterImg = createImage(characterImage);
 
         imagesContainer.appendChild(characterImg);
-    });
-
-    const character = document.querySelectorAll(".characterImageStyles");
-    const prueba = document.querySelector(".containerItemImage");
-    character.forEach((img) => {
-        img.addEventListener("click", () => {
+        
+        characterImg.addEventListener("mouseenter", () => {
             const tootltipInfo = document.createElement("div");
             tootltipInfo.classList.add("tooltip");
-             
-            prueba.appendChild(tootltipInfo);
+            characterImg.appendChild(tootltipInfo);
+            rickAndMortyInfo(tootltipInfo, characterImage.id);
+        });
+
+        characterImg.addEventListener("mouseleave", (e) => {
+            e.target.querySelector(".tooltip").remove();
+
         });
     });
 }
 
-// const rickAndMortyInfo = async () => {
-// }
+
+const rickAndMortyInfo = async (tooltip, i) => { 
+    const resp = await fetch(`${BASE_URL_API}/${i}`)
+    console.log(resp);
+    const results = await resp.json();
+
+    const nameContainer = document.createElement("div");
+    nameContainer.classList.add("nameContainer");
+    tooltip.appendChild(nameContainer);
+    nameContainer.textContent = results.name;
+
+}
 rickAndMortyImages();
+
