@@ -32,7 +32,7 @@ const rickAndMortyImages = async () => {
         characterImg.addEventListener("mouseenter", (e) => {
 
             const imgContainer = document.querySelector(".containerItemImage.active");
-            
+
             if(imgContainer) {
                 imgContainer.classList.remove("active");
             }
@@ -47,6 +47,11 @@ const rickAndMortyImages = async () => {
 
         characterImg.addEventListener("mouseleave", (e) => {
             e.target.querySelector(".tooltip").remove();
+            const imgContainer = document.querySelector(".images-container.shadow");
+
+            if(imgContainer) {
+                imgContainer.classList.remove("shadow");
+            }
 
         });
     });
