@@ -1,8 +1,11 @@
 const imagesContainer = document.querySelector(".images-container");
+const searchInputCharacter = document.querySelector(".searchInputCharacter");
+const searchContainer = document.querySelector(".search-input");
 
 
 const BASE_URL_API = "https://rickandmortyapi.com/api/character";
 const locationURL = "https://rickandmortyapi.com/api/location";
+
 
 const createImage = (character) => {
     const containerItemImage = document.createElement("div");
@@ -23,10 +26,19 @@ const rickAndMortyImages = async () => {
 
     results.forEach((characterImage) => {
         const characterImg = createImage(characterImage);
-
+        
         imagesContainer.appendChild(characterImg);
         
-        characterImg.addEventListener("mouseenter", () => {
+        characterImg.addEventListener("mouseenter", (e) => {
+
+            const imgContainer = document.querySelector(".containerItemImage.active");
+            
+            if(imgContainer) {
+                imgContainer.classList.remove("active");
+            }
+            e.target.classList.add("active");
+            imagesContainer.classList.add("shadow");
+
             const tootltipInfo = document.createElement("div");
             tootltipInfo.classList.add("tooltip");
             characterImg.appendChild(tootltipInfo);
@@ -106,5 +118,63 @@ const rickAndMortyInfo = async (tooltip, i) => {
     planetInfo.textContent = results.origin.name;
     statusInfo.textContent = results.status;
 }
+
+const clearInputSearch = () => {
+    const containerInfo = document.querySelectorAll(".infoInputSearchContainer");
+
+    containerInfo.forEach((item) => {
+        item.remove();
+    });
+}
+
+const searchInput = () => {
+    const containerSearch = document.createElement("ul");
+    containerSearch.classList.add("containerSearch");
+
+
+    searchInputCharacter.addEventListener("input", async () => {
+        const filterCharacterResult = await searchCharacter(searchInputCharacter.value);
+
+        const bandera = containerSearch.hasChildNodes();
+
+        if(bandera){
+            console.log(bandera);
+            clearInputSearch();
+        }
+
+        filterCharacterResult.forEach((item) => {
+            const infoInputSearchContainer = document.createElement("div");
+            infoInputSearchContainer.classList.add("infoInputSearchContainer");
+            containerSearch.appendChild(infoInputSearchContainer);
+
+            const imgCharacter = document.createElement("img");
+            imgCharacter.classList.add("imgCharacterInputSearch");
+            imgCharacter.src = item.image;
+            infoInputSearchContainer.appendChild(imgCharacter);
+
+            const nameCharacter = document.createElement("p");
+            nameCharacter.classList.add("nameCharacter");
+            infoInputSearchContainer.appendChild(nameCharacter);
+            nameCharacter.textContent = `${item.name} - ${item.origin.name}`;
+        });
+        
+        searchContainer.appendChild(containerSearch);
+
+        if (searchInputCharacter.value === '') {
+            containerSearch.remove();
+        }
+    });
+}
+searchInput();
+
+const searchCharacter = async (name) => {
+    const resp = await fetch(`${BASE_URL_API}/?name=${name}`);
+    const {results} = await resp.json();
+    
+    return results;
+}
+
+
+
 rickAndMortyImages();
 
