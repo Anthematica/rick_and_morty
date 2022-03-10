@@ -84,16 +84,43 @@ header {
     transform: translateX(250px);
     background-color: white;
     z-index: 3;
+    
 }
 
 .containerItemImage {
     position: relative;
+
 }
 
 .nameContainer {
-    background-color: red;
+    display: flex;
+    background-color:black;
     width: 100%;
     height: 16px;
     color: white;
     font-size: 1.4rem;
+    padding-inline-start: 6px;
+    margin-block-end: 10px;
 }
+.name {
+    margin-inline-end: 6px;
+}
+
+.characterInfo {
+    display: flex;
+    padding-inline-start: 6px;
+    margin-block-end: 10px;
+}
+
+.planet {
+    display: flex;
+    padding-inline-start: 6px;
+    margin-block-end: 10px;
+}
+
+.status {
+    display: flex;
+    padding-inline-start: 6px;
+    margin-block-end: 10px;
+}
+
