@@ -2,7 +2,6 @@ const imagesContainer = document.querySelector(".images-container");
 const searchInputCharacter = document.querySelector(".searchInputCharacter");
 const searchContainer = document.querySelector(".search-input");
 
-
 const BASE_URL_API = "https://rickandmortyapi.com/api/character";
 const locationURL = "https://rickandmortyapi.com/api/location";
 
@@ -30,23 +29,31 @@ const rickAndMortyImages = async () => {
         imagesContainer.appendChild(characterImg);
         
         characterImg.addEventListener("mouseenter", (e) => {
-
+           
             const imgContainer = document.querySelector(".containerItemImage.active");
 
             if(imgContainer) {
                 imgContainer.classList.remove("active");
             }
+            
             e.target.classList.add("active");
             imagesContainer.classList.add("shadow");
 
             const tootltipInfo = document.createElement("div");
             tootltipInfo.classList.add("tooltip");
+
+
             characterImg.appendChild(tootltipInfo);
+
+            tooltipPositionCondition();
+
             rickAndMortyInfo(tootltipInfo, characterImage.id);
         });
 
         characterImg.addEventListener("mouseleave", (e) => {
+
             e.target.querySelector(".tooltip").remove();
+            
             const imgContainer = document.querySelector(".images-container.shadow");
 
             if(imgContainer) {
@@ -175,11 +182,27 @@ searchInput();
 const searchCharacter = async (name) => {
     const resp = await fetch(`${BASE_URL_API}/?name=${name}`);
     const {results} = await resp.json();
-    
+    console.log(results);
     return results;
 }
 
+const tooltipPositionCondition = () => {
 
+    const ContainerImagesRightPosition = imagesContainer.getBoundingClientRect().right;
+    console.log("wContainerImagesRightPosition", ContainerImagesRightPosition);
+    const tooltip = document.querySelector(".tooltip");
+    console.log(tooltip);
+    const tooltipRight = tooltip.getBoundingClientRect().right;
+    const tooltipWidth = tooltip.getBoundingClientRect().width;
+    console.log("tooltipRight: ", tooltipRight);
+    const tooltipRightMinusWidth = tooltipRight - tooltipWidth;
+    console.log("tooltipRightMinusWidth: ",  tooltipRightMinusWidth );
+
+    if (ContainerImagesRightPosition === tooltipRightMinusWidth) {
+        tooltip.classList.add("tooltip-left");
+    }
+
+}
 
 rickAndMortyImages();
 
