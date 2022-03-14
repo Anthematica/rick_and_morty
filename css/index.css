@@ -228,9 +228,23 @@ strong {
     margin-inline-start: 4px;
     font-size: 1.2rem;
 }
+
 .statusInfo {
     margin-inline-start: 4px;
     font-size: 1.2rem;
+}
+
+@media(max-width: 498px){
+    .tooltip {
+        inset-inline-start: 0;
+        inset-block-start: 100%;
+    }
+}
+
+@media(max-width: 768px){
+    .navigation {
+       display: none;
+    }
 }
 
 

@@ -189,14 +189,11 @@ const searchCharacter = async (name) => {
 const tooltipPositionCondition = () => {
 
     const ContainerImagesRightPosition = imagesContainer.getBoundingClientRect().right;
-    console.log("wContainerImagesRightPosition", ContainerImagesRightPosition);
     const tooltip = document.querySelector(".tooltip");
-    console.log(tooltip);
     const tooltipRight = tooltip.getBoundingClientRect().right;
     const tooltipWidth = tooltip.getBoundingClientRect().width;
-    console.log("tooltipRight: ", tooltipRight);
     const tooltipRightMinusWidth = tooltipRight - tooltipWidth;
-    console.log("tooltipRightMinusWidth: ",  tooltipRightMinusWidth );
+
 
     if (ContainerImagesRightPosition === tooltipRightMinusWidth) {
         tooltip.classList.add("tooltip-left");
